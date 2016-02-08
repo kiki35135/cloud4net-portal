@@ -16,6 +16,22 @@
 
 'use strict';
 
+
+var data =  {
+		name: 'PGW-SVC-NGPoP',
+		poolIpClient: '172.20.70.192',
+		netmask: "255.255.255.240",
+		vpnIpAddress: "172.20.70.192",
+		useOrangeDns: 'True',
+		primaryDNS:'172.20.4.148',
+		secondaryDNS:'172.20.104.1',
+		apnName:'vepc6co',
+		options:{
+			highResiliency: 'False',
+			autoElasticity: 'True',
+			advancedParam: 'False'
+		}
+};
 /* Controllers */
 
 var cloud4netportalControllers = angular
@@ -31,12 +47,12 @@ cloud4netportalControllers.controller('IndexCtrl', ['$scope', '$http', '$interva
 }]);
 
 cloud4netportalControllers.controller('ModifyController', ['$scope', '$http', '$modal', function($scope, $http, $modal) {
-	$scope.parameters = {
+	$scope.parameters =  {
 			name: 'PGW-SVC-NGPoP',
 			poolIpClient: '172.20.70.192',
 			netmask: "255.255.255.240",
 			vpnIpAddress: "172.20.70.192",
-			useOrangeDns: 'False',
+			useOrangeDns: 'True',
 			primaryDNS:'172.20.4.148',
 			secondaryDNS:'172.20.104.1',
 			apnName:'vepc6co',
@@ -138,12 +154,12 @@ cloud4netportalControllers.controller('ModifyController', ['$scope', '$http', '$
 }]);
 
 cloud4netportalControllers.controller('NCSConfigController', ['$scope', '$http', '$modal', function($scope, $http, $modal) {
-	$scope.parameters = {
+	/*$scope.parameters =  {
 			name: 'PGW-SVC-NGPoP',
 			poolIpClient: '172.20.70.192',
 			netmask: "255.255.255.240",
 			vpnIpAddress: "172.20.70.192",
-			useOrangeDns: 'False',
+			useOrangeDns: 'True',
 			primaryDNS:'172.20.4.148',
 			secondaryDNS:'172.20.104.1',
 			apnName:'vepc6co',
@@ -152,7 +168,8 @@ cloud4netportalControllers.controller('NCSConfigController', ['$scope', '$http',
 				autoElasticity: 'True',
 				advancedParam: 'False'
 			}
-	};
+	};*/
+	$scope.parameters =data;
 	$scope.status = 'Not started';
 	$scope.loading = false;
 	$scope.useOrangeDns=false;
@@ -256,12 +273,12 @@ cloud4netportalControllers.controller('NCSConfigController', ['$scope', '$http',
 
 
 cloud4netportalControllers.controller('DeleteController', ['$scope', '$http', '$modal', function($scope, $http, $modal) {
-	$scope.parameters = {
+	$scope.parameters =  {
 			name: 'PGW-SVC-NGPoP',
 			poolIpClient: '172.20.70.192',
 			netmask: "255.255.255.240",
 			vpnIpAddress: "172.20.70.192",
-			useOrangeDns: 'False',
+			useOrangeDns: 'True',
 			primaryDNS:'172.20.4.148',
 			secondaryDNS:'172.20.104.1',
 			apnName:'vepc6co',
@@ -374,12 +391,12 @@ cloud4netportalControllers.controller('DeleteController', ['$scope', '$http', '$
 
 
 cloud4netportalControllers.controller('BoostController', ['$scope', '$modal', '$http', function($scope, $modal, $http) {
-	$scope.parameters = {
+	$scope.parameters =  {
 			name: 'PGW-SVC-NGPoP',
 			poolIpClient: '172.20.70.192',
 			netmask: "255.255.255.240",
 			vpnIpAddress: "172.20.70.192",
-			useOrangeDns: 'False',
+			useOrangeDns: 'True',
 			primaryDNS:'172.20.4.148',
 			secondaryDNS:'172.20.104.1',
 			apnName:'vepc6co',
@@ -440,7 +457,7 @@ cloud4netportalControllers.controller('DeleteController', ['$scope', '$modal', '
 			poolIpClient: '172.20.70.192',
 			netmask: "255.255.255.240",
 			vpnIpAddress: "172.20.70.192",
-			useOrangeDns: 'False',
+			useOrangeDns: 'True',
 			primaryDNS:'172.20.4.148',
 			secondaryDNS:'172.20.104.1',
 			apnName:'vepc6co',

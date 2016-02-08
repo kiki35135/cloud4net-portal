@@ -73,7 +73,7 @@ class NcsConfigController {
     
     
     @RequestMapping(value = "/ncsConfig", method = POST) 
-    public NcsConfigEntity createNCSConfig(final @RequestBody @Valid NcsConfigDTO newNCSConfig, final BindingResult bindingResult) {
+    public String createNCSConfig(final @RequestBody @Valid NcsConfigDTO newNCSConfig, final BindingResult bindingResult) {
 	
 	 
 	if(bindingResult.hasErrors()) {
@@ -88,14 +88,75 @@ class NcsConfigController {
 
 
 	log.info("# Deploy vPGW:");	
-	AnsibleClient sshClient=new AnsibleClient();
-	sshClient.testSSHConnection();
+	/*AnsibleClient sshClient=new AnsibleClient();
+	sshClient.testSSHConnection();*/
 	
-	//NCSRestClient ncs=new NCSRestClient();
+	AnsibleClient sshClient=new AnsibleClient("10.194.60.222",22,"philippe","cloud4net");
+	sshClient.deployPGW("ncs-cvn", "multisite.yml");
 	
-	log.info("# Save Data received .........................;");			
+	
+	
 	final NcsConfigEntity ncsConfig = new NcsConfigEntity();
-	return this.ncsConfigRepository.save(ncsConfig);	
+	ncsConfig.setId(2);
+	
+	ncsConfig.setName("PGW-SVC-NGPOP-2");
+	
+	ncsConfig.setGWdevice("vPGW-NGPOP-2");
+	ncsConfig.setPRNservice("99");
+	ncsConfig.setpEdevice("PE-Cevennes");
+	
+	
+	ncsConfig.setAPN(newNCSConfig.getApnName());
+	
+	
+	ncsConfig.setPoolIpAddress(newNCSConfig.getPoolIpClient());
+	ncsConfig.setNetmask(newNCSConfig.getNetmask());
+	
+	ncsConfig.setVpnIpAddress(newNCSConfig.getVpnIpAddress());
+	ncsConfig.setCustomDNS((newNCSConfig.getUseOrangeDns().compareTo("True")==0)?true:false);
+	ncsConfig.setPrimaryDNS(newNCSConfig.getprimaryDNS());
+	ncsConfig.setSecondaryDNS(newNCSConfig.getsecondaryDNS());
+	
+	this.ncsConfigRepository.save(ncsConfig);
+	
+	NCSRestClient restClient= new NCSRestClient("127.0.0.1",5000,"admin","admin");
+	try {
+		restClient.test("127.0.0.1",5000,"api/v1/test",ncsConfig);
+	}
+	catch (Exception e){
+		log.info("# Error  " + e.getMessage());
+	}
+	
+	ncsConfig.setId(1);
+	ncsConfig.setName("PGW-SVC-NGPOP-1");
+	
+	ncsConfig.setGWdevice("vPGW-NGPOP-1");
+	ncsConfig.setPRNservice("100");
+	
+	ncsConfig.setpEdevice("PE-Cevennes"); // TO DE CONFIRMED
+	
+	
+	ncsConfig.setAPN(newNCSConfig.getApnName());
+	
+	
+	ncsConfig.setPoolIpAddress(newNCSConfig.getPoolIpClient());
+	ncsConfig.setNetmask(newNCSConfig.getNetmask());
+	
+	ncsConfig.setVpnIpAddress(newNCSConfig.getVpnIpAddress());
+	
+	ncsConfig.setPrimaryDNS(newNCSConfig.getprimaryDNS());
+	ncsConfig.setSecondaryDNS(newNCSConfig.getsecondaryDNS());
+	log.info("# Add new Config: " + ncsConfig.toString());
+	this.ncsConfigRepository.save(ncsConfig);
+	try {
+	restClient.test("127.0.0.1",5000,"api/v1/test",ncsConfig);
+    }
+	catch (Exception e){
+		log.info("# Add new Config: " + e.getMessage());
+	}
+	log.info("# Save Data received ");			
+	//final NcsConfigEntity ncsConfig = new NcsConfigEntity();
+	return "FINISHED";	
     }
     
     

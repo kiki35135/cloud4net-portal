@@ -16,7 +16,7 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author Ch LE TOQUIN, 2016.02.05
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-class NcsConfigDTO {
+public class NcsConfigDTO {
 	/*
  	parameters = {
  	 		name: 'PGW-SVC-NGPoP',

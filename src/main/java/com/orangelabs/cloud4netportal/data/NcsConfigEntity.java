@@ -95,6 +95,9 @@ public class NcsConfigEntity implements Serializable {
 
     @Column(name = "customDNS")
     private Boolean customDNS ;
+    
+    @Column(name = "pEdevice", length = 255, nullable = true)
+    private String pEdevice ;
 
     
     @Column(name = "primaryDNS", length = 255, nullable = true)
@@ -142,6 +145,7 @@ public class NcsConfigEntity implements Serializable {
 		this.customDNS = customDNS;
 		this.primaryDNS = primaryDNS;
 		this.secondaryDNS = secondaryDNS;
+		
 		APN = aPN;
 	}
 
@@ -149,7 +153,22 @@ public class NcsConfigEntity implements Serializable {
 	return this.id;
     }
 
-    public String getName() {
+	
+	
+	
+    public String getpEdevice() {
+		return pEdevice;
+	}
+
+	public void setpEdevice(String pEdevice) {
+		this.pEdevice = pEdevice;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
 	return this.name;
     }
 
@@ -259,4 +278,14 @@ public class NcsConfigEntity implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	@Override
+	public String toString() {
+		return "NcsConfigEntity [id=" + id + ", name=" + name + ", PRNservice=" + PRNservice + ", poolIpAddress="
+				+ poolIpAddress + ", netmask=" + netmask + ", GWdevice=" + GWdevice + ", vpnIpAddress=" + vpnIpAddress
+				+ ", customDNS=" + customDNS + ", pEdevice=" + pEdevice + ", primaryDNS=" + primaryDNS
+				+ ", secondaryDNS=" + secondaryDNS + ", APN=" + APN + "]";
+	}
+	
+	
 }

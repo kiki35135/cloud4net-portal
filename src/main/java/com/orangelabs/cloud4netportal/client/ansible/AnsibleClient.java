@@ -126,93 +126,8 @@ public class  AnsibleClient {
 		this.pwd=pwd;
 	}
 
-
-	public boolean deployPGW(String name,String filename) {
-		JSch shell = new JSch();  
-		try {
-			// get a new session    
-			Session session = shell.getSession(user, host, port);  
-
-			// set user password and connect to a channel  
-			session.setUserInfo(new SSHUserInfo(this.pwd));  
-			session.connect();  
-			Channel channel = session.openChannel("shell");  
-			channel.connect();  
-
-			DataInputStream dataIn = new DataInputStream(channel.getInputStream());  
-			DataOutputStream dataOut = new DataOutputStream(channel.getOutputStream());  
-
-			// send ls command to the server  
-
-			// send ls command to the server  
-			String cmd = new String("ansible-playbook --limit");
-			cmd =cmd.concat(name).concat(" ~/Ansible_alu5/").concat(filename);
-			cmd = cmd.concat("\r\n");
-
-			dataOut.writeBytes(cmd);  
-			dataOut.flush();  
-
-			// and print the response   
-			String line = dataIn.readLine();  
-			System.out.println(line);  
-			while(!line.endsWith(endLineStr)) {  
-				System.out.println(line);  
-				line = dataIn.readLine();  
-			}  
-			dataIn.close();  
-			dataOut.close();  
-			channel.disconnect();  
-			session.disconnect();  
-			return true;
-		}
-		catch(JSchException e)
-		{
-			//e.getMessage();
-			return false;
-
-		} catch (Exception e )
-		{
-			//	System.println(e.getMessage());
-			return false;
-		}
-
-	}
-	private static void readChannelOutput(Channel channel){
-
-	    byte[] buffer = new byte[1024];
-
-	    try{
-	        InputStream in = channel.getInputStream();
-	        String line = "";
-	        while (true){
-	            while (in.available() > 0) {
-	                int i = in.read(buffer, 0, 1024);
-	                if (i < 0) {
-	                    break;
-	                }
-	                line = new String(buffer, 0, i);
-	                System.out.println(line);
-	            }
-
-	            if(line.contains("logout")){
-	                break;
-	            }
-
-	            if (channel.isClosed()){
-	                break;
-	            }
-	            try {
-	                Thread.sleep(1000);
-	            } catch (Exception ee){}
-	        }
-	    }catch(Exception e){
-	        System.out.println("Error while reading channel output: "+ e);
-	    }
-
-	}
 	
-
-	public boolean testSSHConnection(){
+	public boolean deployPGW(String name,String filename){
 		JSch shell = new JSch();
 		try {
 			log.info("Start Session with "+ host );
@@ -226,8 +141,12 @@ public class  AnsibleClient {
 		      session.connect();   // making a connection with timeout.
 			Channel channel = session.openChannel("exec");
 			
-
-			   ((ChannelExec)channel).setCommand("ls -ltr");
+			// send ls command to the server  
+				String cmd = new String("cd ansible && ansible-playbook --limit ");
+				cmd =cmd.concat(name).concat(" ").concat(filename);
+				System.out.println("command : " + cmd);	
+						
+			   ((ChannelExec)channel).setCommand(cmd);
 	            channel.setInputStream(null);
 	            ((ChannelExec)channel).setErrStream(System.err);
 	             
@@ -273,48 +192,125 @@ public class  AnsibleClient {
 
 	}	
 
-	public boolean detroyPGW(String filename) {
-		JSch shell = new JSch();  
-		try { 
+
+	
+
+	public boolean testSSHConnection(){
+		JSch shell = new JSch();
+		try {
+			log.info("Start Session with "+ host );
 			// get a new session    
 			Session session = shell.getSession(user, host, port);  
 
 			// set user password and connect to a channel  
 			session.setUserInfo(new SSHUserInfo(pwd));  
-			session.connect();  
-			Channel channel = session.openChannel("shell");  
-			channel.connect();  
+			 System.out.println("Connecting SSH to " + host + " - Please wait for few seconds... ");
+			//session.connect();
+		      session.connect();   // making a connection with timeout.
+			Channel channel = session.openChannel("exec");
+			
 
-			DataInputStream dataIn = new DataInputStream(channel.getInputStream());  
-			DataOutputStream dataOut = new DataOutputStream(channel.getOutputStream());  
+			   ((ChannelExec)channel).setCommand("ls -ltr");
+	            channel.setInputStream(null);
+	            ((ChannelExec)channel).setErrStream(System.err);
+	             
+	            InputStream in=channel.getInputStream();
+	            channel.connect();
+	            byte[] tmp=new byte[1024];
+	            while(true){
+	              while(in.available()>0){
+	                int i=in.read(tmp, 0, 1024);
+	                if(i<0)break;
+	                System.out.print(new String(tmp, 0, i));
+	              }
+	              if(channel.isClosed()){
+	                System.out.println("exit-status: "+channel.getExitStatus());
+	                break;
+	              }
+	              try{Thread.sleep(1000);}catch(Exception ee){}
+	            }
 
-			// send ls command to the server  
-			String cmd = new String("ansible-playbook --limit ~/Ansible_alu5/").concat(filename);
-			cmd = cmd.concat("\r\n");
-
-			dataOut.writeBytes(cmd);  
-			dataOut.flush();  
-
-			// and print the response   
-			String line = dataIn.readLine();  
-			System.out.println(line);  
-			while(!line.endsWith(endLineStr)) {  
-				System.out.println(line);  
-				line = dataIn.readLine();  
-			}  
-			dataIn.close();  
-			dataOut.close();  
+		
 			channel.disconnect();  
-			session.disconnect();  
+			session.disconnect();
+			log.info("Disconnected" );
 			return true;
 		}
 		catch(JSchException e)
 		{
 			//e.getMessage();
+			log.info(e.getMessage() );
+			log.info("Error message" );
 			return false;
 
 		} catch (Exception e )
 		{
+			log.info(e.getMessage() );
+			log.info("Error message #2" );
+			//	System.println(e.getMessage());
+			return false;
+		}
+
+
+
+	}	
+
+	public boolean detroyPGW(String name,String filename) {
+		JSch shell = new JSch();
+		try {
+			log.info("Start Session with "+ host );
+			// get a new session    
+			Session session = shell.getSession(user, host, port);  
+
+			// set user password and connect to a channel  
+			session.setUserInfo(new SSHUserInfo(pwd));  
+			 System.out.println("Connecting SSH to " + host + " - Please wait for few seconds... ");
+			//session.connect();
+		      session.connect();   // making a connection with timeout.
+			Channel channel = session.openChannel("exec");
+			
+			// send ls command to the server  
+				String cmd = new String("cd ansible &&  ansible-playbook --limit ");
+				cmd =cmd.concat(name).concat(" ").concat(filename);
+				System.out.println("command : " + cmd);			
+			   ((ChannelExec)channel).setCommand(cmd);
+	            channel.setInputStream(null);
+	            ((ChannelExec)channel).setErrStream(System.err);
+	             
+	            InputStream in=channel.getInputStream();
+	            channel.connect();
+	            byte[] tmp=new byte[1024];
+	            while(true){
+	              while(in.available()>0){
+	                int i=in.read(tmp, 0, 1024);
+	                if(i<0)break;
+	                System.out.print(new String(tmp, 0, i));
+	              }
+	              if(channel.isClosed()){
+	                System.out.println("exit-status: "+channel.getExitStatus());
+	                break;
+	              }
+	              try{Thread.sleep(1000);}catch(Exception ee){}
+	            }
+
+		
+			log.info("Disconnecting" );
+			channel.disconnect();  
+			session.disconnect();
+			log.info("Disconnected" );
+			return true;
+		}
+		catch(JSchException e)
+		{
+			//e.getMessage();
+			log.info(e.getMessage() );
+			log.info("Error message" );
+			return false;
+
+		} catch (Exception e )
+		{
+			log.info(e.getMessage() );
+			log.info("Error message #2" );
 			//	System.println(e.getMessage());
 			return false;
 		}
