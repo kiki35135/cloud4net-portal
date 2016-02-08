@@ -1,6 +1,5 @@
-<div class="row" ng-controller="DeleteController">
+<div class="row" ng-controller="DeleteController" >
 	<div class="col-md-12">
-
 		<h3>
 			Easy Secured Mobile Access - <b>Delete</b>
 		</h3>
@@ -13,27 +12,28 @@
 		<form class="form-horizontal" ng-show="showModal" action="">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3>Please Waiting - Processing ..... </h3>
+					<h3>Please Waiting  </h3>
 				</div>
 				<div class="panel-body">
-					<div modal="showModal" ng-show="showModal" close="cancel()">
+					<div  close="cancel()" >
 						
 						<div class="modal-body">
+							<h4>{{status}}</h4>
 							<div class="progress progress-striped active">
-								<div class="progress-bar" role="progressbar" aria-valuenow="70"
-									aria-valuemin="0" aria-valuemax="100" style="width: 70%">
-									<span class="percent">70%</span> <span class="sr-only">70%
-										Complete</span>
-								</div>
+	    							<div class="progress-bar"   aria-valuenow="{{getPercentage()}}" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width': progress + '%' }">
+			    					</div>
 							</div>
+							
+	
+							
 						</div>
-						<div class="modal-footer"></div>
+						
 					</div>
 				</div>
 			</div>
-		</form> 
-		<form class="form-horizontal" ng-show="!showModal" role="form"
-			action="">
+		</form>
+	 
+		<form class="form-horizontal" ng-show="!showModal" action="">
 			<div class="panel panel-default">
 				<div class="panel-heading">Parameters</div>
 
@@ -72,7 +72,8 @@
 						<div class="form-group">
 							<div class="col-lg-offset-8 col-lg-10">
 								<button type="submit" type="button"
-									class="btn btn-warning  btn-lg" ng-click="deleteSubmit()"
+									class="btn btn-warning  btn-lg" 
+									ng-click="deleteSubmit()"
 									ng-disabled="submitButtonDisabled">Confirm</button>
 							</div>
 
@@ -80,14 +81,8 @@
 						</div>
 					</div>
 
-					<!--                                    </form>-->
 				</div>
-
-
-
 			</div>
 		</form>
 	</div>
-	<form action=""></form>
 </div>
-<div></div>

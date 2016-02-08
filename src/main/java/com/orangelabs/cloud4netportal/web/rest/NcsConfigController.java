@@ -88,20 +88,25 @@ class NcsConfigController {
 
 
 	log.info("# Deploy vPGW:");	
-	/*AnsibleClient sshClient=new AnsibleClient();
-	sshClient.testSSHConnection();*/
+	AnsibleClient sshClient=new AnsibleClient();
+	sshClient.testSSHConnection();
 	
-	AnsibleClient sshClient=new AnsibleClient("10.194.60.222",22,"philippe","cloud4net");
-	sshClient.deployPGW("ncs-cvn", "multisite.yml");
+
 	
+/*	
+  AnsibleClient sshClient=new AnsibleClient("10.194.60.222",22,"philippe","cloud4net");
+	sshClient.deployPGW("@hosts-cvn.txt", "multisite.yml");
+	*/
 	
 	
 	final NcsConfigEntity ncsConfig = new NcsConfigEntity();
 	ncsConfig.setId(2);
 	
-	ncsConfig.setName("PGW-SVC-NGPOP-2");
+	//ncsConfig.setName("PGW-SVC-NGPoP-2");
+	ncsConfig.setName("PGW-SVC-NGPoP-2");
 	
-	ncsConfig.setGWdevice("vPGW-NGPOP-2");
+	//ncsConfig.setGWdevice("vPGW-NGPoP-2");
+	ncsConfig.setGWdevice("PGW-SVC-NGPoP-2");
 	ncsConfig.setPRNservice("99");
 	ncsConfig.setpEdevice("PE-Cevennes");
 	
@@ -119,14 +124,27 @@ class NcsConfigController {
 	
 	this.ncsConfigRepository.save(ncsConfig);
 	
-	NCSRestClient restClient= new NCSRestClient("127.0.0.1",5000,"admin","admin");
+	/*NCSRestClient restClient= new NCSRestClient("127.0.0.1",5000,"admin","admin");
 	try {
 		restClient.test("127.0.0.1",5000,"api/v1/test",ncsConfig);
 	}
 	catch (Exception e){
 		log.info("# Error  " + e.getMessage());
 	}
+	*/
 	
+	NCSRestClient restClient= new NCSRestClient("172.20.34.190",8080,"admin","admin");
+	try {
+		restClient.initPGW("172.20.34.190",8080,"api/running/services/iCSRpGWsVC/","PGW-SVC-NGPoP-2",ncsConfig);
+		//restClient.initPGW("172.20.34.190",8080,"api/running/services/iCSRpGWsVC/","vPGW-Cevennes",ncsConfig);
+		
+		
+		
+	}
+	catch (Exception e){
+		log.info("# Error  " + e.getMessage());
+	}
+	/*
 	ncsConfig.setId(1);
 	ncsConfig.setName("PGW-SVC-NGPOP-1");
 	
@@ -154,6 +172,7 @@ class NcsConfigController {
 	catch (Exception e){
 		log.info("# Add new Config: " + e.getMessage());
 	}
+	*/
 	log.info("# Save Data received ");			
 	//final NcsConfigEntity ncsConfig = new NcsConfigEntity();
 	return "FINISHED";	
@@ -194,13 +213,13 @@ class NcsConfigController {
     
 
     @RequestMapping(value = "/ncsConfig/delete", method = POST ) 
-    public String destroyPGW(final @RequestBody @Valid NcsConfigDTO newNCSConfig, 
+    public String destroyPGW(final @RequestBody  String test, 
     		final BindingResult bindingResult) {
 	
-	 log.info("# Receive new value:");
+	 /*
 	if(bindingResult.hasErrors()) {
 	    throw new IllegalArgumentException("Invalid arguments.");
-	}
+	}*/
 
 	log.info("# Destroy vSPGW "); 
 	
@@ -209,9 +228,8 @@ class NcsConfigController {
 	
 
 
-		
-	AnsibleClient sshClient=new AnsibleClient();
-	sshClient.testSSHConnection();
+	AnsibleClient sshClient=new AnsibleClient("10.194.60.222",22,"philippe","cloud4net");
+	sshClient.deployPGW("ctcm-cvn", "vepc-clean.yml");
 	
 	//NCSRestClient ncs=new NCSRestClient();
 		

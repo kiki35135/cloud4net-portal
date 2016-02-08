@@ -101,11 +101,11 @@ var cloud4netportal = angular
 			    }).
 			    when('/delete', {
 				templateUrl: '/partials/_delete.html',
-				controller: 'DeleteCtrl'
+				controller: 'DeleteController'
 			    }).
 			    when('/offer', {
 					templateUrl: '/partials/_offer.html',
-					controller: 'OfferCtrl'
+					controller: 'OfferController'
 				    }).
 			    when('/about', {
 				templateUrl: '/partials/_about.html',

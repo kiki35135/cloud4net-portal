@@ -2,26 +2,22 @@ package com.orangelabs.cloud4netportal.client.ncs;
 
 
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import com.orangelabs.cloud4netportal.client.ncs.data.ConfigNcsObject;
 import com.orangelabs.cloud4netportal.client.ncs.data.InputObject;
 import com.orangelabs.cloud4netportal.data.NcsConfigEntity;
 
-import groovy.util.ConfigObject;
+
 
 
 
@@ -135,12 +131,12 @@ public class NCSRestClient {
 
 
 
-	public boolean initPGW(String host, int port, String name, NcsConfigEntity value)
+	public boolean initPGW(String host, int port, String api_path, String name, NcsConfigEntity value)
 	{
 		boolean ret=false;
 		String url= new String("https://");
 		url= url.concat(host);
-		url= url.format("http://%s:%d/%s/%s", host,port,api_path_init,name);
+		url= url.format("http://%s:%d/%s/%s", host,port,api_path,name);
 		
 		RestTemplate restTemplate = new RestTemplate();
 		
@@ -163,13 +159,17 @@ public class NCSRestClient {
 		obj.setSecDNS(value.getSecondaryDNS());
 		obj.setiPsubnet(value.getpoolIpAddress());
 		obj.setvPRNservice(value.getPRNservice());
+		//obj.setvPRNservice("99");
+		obj.setpEdevice(value.getpEdevice());
 		obj.setpGWdevice(value.getGWdevice());
 		obj.setNetmask(value.getNetmask());
 		obj.setaPNname(value.getAPN());
-		
+		log.info("send value :" + obj.toString());
 		
 		//set your entity to send
 		HttpEntity entity = new HttpEntity(obj,headers);
+		
+		log.info("send value :" + entity.getBody().toString());
 		
 		HttpEntity<String> request = new HttpEntity<String>(headers);
 		
@@ -177,7 +177,7 @@ public class NCSRestClient {
 		
 		// send it!
 		ResponseEntity<String> out =
-				restTemplate.exchange(url, HttpMethod.POST, entity,String.class );
+				restTemplate.exchange(url, HttpMethod.PUT, entity,String.class );
 		
 		
 		System.out.println(out.getBody());

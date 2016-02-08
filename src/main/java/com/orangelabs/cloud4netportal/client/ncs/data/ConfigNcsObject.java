@@ -1,25 +1,39 @@
 package com.orangelabs.cloud4netportal.client.ncs.data;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @XmlRootElement(name="iCSRpGWsVC")
-@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class ConfigNcsObject {
     private String name;
+    
     private String aPNname;
+    
     private String iPsubnet;
+    
+    @XmlElement(name="vPRNservice", required = true)	 
+    private String PRNservice;	
+    
+    
     private String netmask;
+    
     private String pGWdevice;
+    
     private String pEdevice;
+    
+    
     private String primDNS;
+    
     private String secDNS;
-    private String PRNservice;
+
+
     
     
 	public ConfigNcsObject() {
 		super();
+		
 		// TODO Auto-generated constructor stub
 	}
 	public ConfigNcsObject(String name, String aPNname, String iPsubnet, String netmask, String pGWdevice,
@@ -34,6 +48,7 @@ public class ConfigNcsObject {
 		this.primDNS = primDNS;
 		this.secDNS = secDNS;
 		this.PRNservice = vPRNservice;
+		
 	}
 	public String getName() {
 		return name;
@@ -89,6 +104,13 @@ public class ConfigNcsObject {
 	public void setvPRNservice(String vPRNservice) {
 		this.PRNservice = vPRNservice;
 	}
+	@Override
+	public String toString() {
+		return "ConfigNcsObject [name=" + name + ", aPNname=" + aPNname + ", iPsubnet=" + iPsubnet + ", netmask="
+				+ netmask + ", pGWdevice=" + pGWdevice + ", pEdevice=" + pEdevice + ", primDNS=" + primDNS + ", secDNS="
+				+ secDNS + ", vPRNservice=" + PRNservice + "]";
+	}
+	
 
 };
 

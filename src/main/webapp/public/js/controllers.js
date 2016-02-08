@@ -46,7 +46,7 @@ cloud4netportalControllers.controller('IndexCtrl', ['$scope', '$http', '$interva
 	$scope.currentDefaultPicture = '/img/default-picture.jpg';
 }]);
 
-cloud4netportalControllers.controller('ModifyController', ['$scope',  '$http', '$modal', function($scope, $http, $modal) {
+cloud4netportalControllers.controller('ModifyController', ['$scope',  '$http', '$interval','$modal', function($scope, $http, $modal,$interval) {
 	$scope.parameters =data;
 	
 	$scope.status = 'Not started';
@@ -56,6 +56,11 @@ cloud4netportalControllers.controller('ModifyController', ['$scope',  '$http', '
 	$scope.autoElasticity=false;
 	$scope.advancedParam=false;
 	$scope.showModal =false;
+	
+	$scope.progress = 0;
+    $scope.labels = [
+      "vEPC uneployment "
+    ];
 	
 	$scope.manualElastivity=false;
 
@@ -94,12 +99,25 @@ cloud4netportalControllers.controller('ModifyController', ['$scope',  '$http', '
 			$scope.parameters.options.highResiliency= 'False';
 		}
 	};
-
+	$scope.getPercentage = function() {
+		return (parseInt($scope.progress) / parseInt(	$scope.total)) * 100;
+		
+	};
 	$scope.boostSubmit = function() {
 		$scope.submitting = true;
 		$scope.loading = true;
 		$scope.showModal=true;
-		
+		$scope.progress=5;
+		$interval(function() {
+			$scope.progress += 10; //random(0, 10);
+			$scope.status = $scope.labels[0];
+		    if ($scope.progress > 50) {
+		        $scope.status = $scope.labels[1];
+		      }
+		    else if ($scope.progress > 80) {
+		    	$scope.status = $scope.labels[2];
+		    }
+		}, 1000, 20);
 		$http({
 			method: 'POST',
 			url: '/api/ncsConfig/modify',
@@ -185,24 +203,37 @@ cloud4netportalControllers.controller('ModifyController', ['$scope',  '$http', '
 
 }]);
 
-cloud4netportalControllers.controller('NCSConfigController', ['$scope', '$http', '$modal', function($scope, $http, $modal) {
-	/*$scope.parameters =  {
-			name: 'PGW-SVC-NGPoP',
-			poolIpClient: '172.20.70.192',
-			netmask: "255.255.255.240",
-			vpnIpAddress: "172.20.70.192",
-			useOrangeDns: 'True',
-			primaryDNS:'172.20.4.148',
-			secondaryDNS:'172.20.104.1',
-			apnName:'vepc6co',
-			options:{
-				highResiliency: 'False',
-				autoElasticity: 'True',
-				advancedParam: 'False'
-			}
-	};*/
+
+
+cloud4netportalControllers.controller('NCSConfigController', ['$scope', '$http', '$interval','$modal', function($scope, $http, $interval, $modal) {
+
+	
+	$scope.status = "Processing ...";
+    $scope.progress = 0;
+    $scope.labels = [
+      "vEPC Deployment ",
+      "vEPC and PE Configuration",
+      "Parameters customization"
+    ];
+    
+    var i = -1;
+    function update() {
+    	console.log("test update");
+      $scope.progress += random(0, 10);
+      if ($scope.progress > random(70, 90)) {
+        $scope.progress = random(5, 50);
+        i = (i + 1) % $scope.labels.length;
+        $scope.status = $scope.labels[i];
+      }
+    //  $timeout(update, 6000);
+    };
+    
+    function random(a, b) {
+      return a + Math.floor(Math.random() * (b - a));
+    };
+    
 	$scope.parameters =data;
-	$scope.status = 'Not started';
+	
 	$scope.loading = false;
 	$scope.useOrangeDns=false;
 	$scope.highResiliency=false;
@@ -210,6 +241,14 @@ cloud4netportalControllers.controller('NCSConfigController', ['$scope', '$http',
 	$scope.advancedParam=false;
 	
 	$scope.showModal =false;
+	
+	$scope.value =0;
+	$scope.total = 100;
+	
+	
+	$scope.getPercentage = function() {
+		return (parseInt($scope.progress) / parseInt(	$scope.total)) * 100;
+	};
 
 	$scope.toggleUseOrangeDns = function() { 
 
@@ -225,7 +264,7 @@ cloud4netportalControllers.controller('NCSConfigController', ['$scope', '$http',
 
 
 	};
-
+	
 	$scope.toggleAutoElasticity = function() { 
 		if ($scope.autoElasticity.checked) {
 			$scope.parameters.options.highResiliency='True';
@@ -238,12 +277,21 @@ cloud4netportalControllers.controller('NCSConfigController', ['$scope', '$http',
 
 	$scope.submit = function() {
 		$scope.submitting = true;
-		$scope.status = 'Processing .....';
+		$scope.status = $scope.labels[0];
+		
 		$scope.loading = true;
-		//myApp.showPleaseWait();
-		$scope.showModal =true;
-		//cfpLoadingBar.inc();
-		//$scope.showModal = !$scope.showModal;
+
+		$interval(function() {
+			$scope.progress += 10; //random(0, 10);
+			$scope.status = $scope.labels[0];
+		    if ($scope.progress > 50) {
+		        $scope.status = $scope.labels[1];
+		      }
+		    else if ($scope.progress > 80) {
+		    	$scope.status = $scope.labels[2];
+		    }
+		}, 10000, 20);
+
 		if ($scope.useOrangeDns)
 		{
 
@@ -280,22 +328,25 @@ cloud4netportalControllers.controller('NCSConfigController', ['$scope', '$http',
 		{
 			$scope.parameters.advancedParam='False';
 		}
+		
 		$http({
 			method: 'POST',
 			url: '/api/ncsConfig',
 			data: $scope.parameters
 		}).success(function(data) {
 			$scope.submitting = false;
-			$scope.status = 'Finished !';
+			//$scope.status = 'Finished !';
 			$scope.loading = false;
 			//myApp.hidePleaseWait();
+			$interval.cancel(stop);
 			$scope.showModal =false;
 			
-			$modalInstance.close(data);
+			//$modalInstance.close(data);
 		}).error(function(data, status) {
-			$scope.status = 'Error';
+			//$scope.status = 'Error';
 			$scope.submitting = false;
 			$scope.loading = false;
+			$interval.cancel(stop);
 			$scope.showModal =false;
 			if (status === 400)
 				$scope.badRequest = data;
@@ -308,7 +359,7 @@ cloud4netportalControllers.controller('NCSConfigController', ['$scope', '$http',
 }]);
 
 
-cloud4netportalControllers.controller('DeleteController', ['$scope', '$http', '$modal', function($scope, $http, $modal) {
+cloud4netportalControllers.controller('DeleteController', ['$scope', '$http', '$interval','$modal', function($scope, $http, $modal,$interval) {
 	$scope.parameters =data;
 	$scope.status = 'Not started';
 	$scope.loading = false;
@@ -316,8 +367,16 @@ cloud4netportalControllers.controller('DeleteController', ['$scope', '$http', '$
 	$scope.highResiliency=false;
 	$scope.autoElasticity=false;
 	$scope.advancedParam=false;
-
+    $scope.progress = 0;
+    $scope.labels = [
+      "vEPC uneployment "
+    ];
 	$scope.showModal=false;
+	
+	$scope.getPercentage = function() {
+		return (parseInt($scope.progress) / parseInt(	$scope.total)) * 100;
+		
+	};
 
 	$scope.toggleUseOrangeDns = function() { 
 
@@ -346,9 +405,20 @@ cloud4netportalControllers.controller('DeleteController', ['$scope', '$http', '$
 
 	$scope.deleteSubmit = function() {
 		$scope.submitting = true;
-		$scope.status = 'Processing .....';
+		
 		$scope.loading= true;
 		$scope.showModal=true;
+		$scope.status = $scope.labels[0];
+		$interval(function() {
+			$scope.progress += 10; //random(0, 10);
+			$scope.status = $scope.labels[0];
+		    if ($scope.progress > 50) {
+		        $scope.status = $scope.labels[1];
+		      }
+		    else if ($scope.progress > 80) {
+		    	$scope.status = $scope.labels[2];
+		    }
+		}, 10000, 20);
 		if ($scope.useOrangeDns)
 		{
 
@@ -390,16 +460,14 @@ cloud4netportalControllers.controller('DeleteController', ['$scope', '$http', '$
 			url: '/api/ncsConfig/delete',
 			data: $scope.parameters
 		}).success(function(data) {
-			$scope.submitting = false;
-			$scope.status = 'Finished !';
-			$scope.loading = false;
-			$scope.showModal =false;
 			
-			$modalInstance.close(data);
+			$scope.status = 'Finished !';
+			
+			$scope.showModal =false;
+
 		}).error(function(data, status) {
 			$scope.status = 'Error';
-			$scope.submitting = false;
-			$scope.loading = false;
+
 			$scope.showModal =false;
 			if (status === 400)
 				$scope.badRequest = data;
@@ -413,37 +481,45 @@ cloud4netportalControllers.controller('DeleteController', ['$scope', '$http', '$
 
 
 
-cloud4netportalControllers.controller('BoostController', ['$scope', '$modal', '$http', function($scope, $modal, $http) {
+cloud4netportalControllers.controller('BoostController', ['$scope', '$modal', '$interval','$http', function($scope, $modal, $http,$interval) {
 	$scope.parameters =data;
+	$scope.total=100;
+	$scope.progress=0;
 	
 	$scope.boost = {
 			parentalFw: 'True',
 			webFilter: 'False',
 			antivirus: "True"
 	};
-
+	$scope.getPercentage = function() {
+		return (parseInt($scope.progress) / parseInt(	$scope.total)) * 100;
+		
+	};
 	$scope.showModal=false;
 
 	$scope.boostSubmit = function() {
-		$scope.submitting = true;
-		$scope.loading = true;
-		$scope.showModal=true;
 		
+		$scope.showModal=true;
+		$scope.progress=5;
+		$scope.status = $scope.labels[0];
+		$interval(function() {
+			$scope.progress += 10; //random(0, 10);
+			$scope.status = $scope.labels[0];
+		    
+		}, 10000, 20);
 		$http({
 			method: 'POST',
 			url: '/api/ncsConfig/modify',
 			data: $scope.parameters
 		}).success(function(data) {
 			$scope.submitting = false;
-			$scope.status = "Finished";
+
 			$scope.loading = false;
 			$scope.showModal=false;
-			$modalInstance.close(data);
+			
 		}).error(function(data, status) {
-			$scope.submitting = false;
-			$scope.status = "Error";
 			$scope.showModal =false;
-			$scope.loading = false;
+
 			if (status === 400)
 				$scope.badRequest = data;
 			else if (status === 409)
@@ -457,39 +533,9 @@ cloud4netportalControllers.controller('BoostController', ['$scope', '$modal', '$
 
 
 
-cloud4netportalControllers.controller('DeleteController', ['$scope', '$modal', '$http', function($scope, $modal, $http) {
-	$scope.options = {
-			highResiliency: 'False',
-			autoElasticity: 'True',
-			advancedParam: 'False'
-	};
-	
-
-	$scope.parameters =data;
-	$scope.showModal =true;
-	$scope.deleteSubmit = function() {
-		$scope.showModal =true;
-		$scope.submitting = true;
-		$http({
-			method: 'POST',
-			url: '/api/ncsConfig/delete',
-			data: $scope.parameters
-		}).success(function(data) {
-			$scope.submitting = false;
-			$modalInstance.close(data);
-			$scope.showModal =false;
-		}).error(function(data, status) {
-			$scope.submitting = false;
-			$scope.showModal =false;
-			if (status === 400)
-				$scope.badRequest = data;
-			else if (status === 409)
-				$scope.badRequest = 'The name is already used.';
-		});
-	};
+cloud4netportalControllers.controller('OfferController', ['$scope', '$q', '$http', '$filter', '$interval', function($scope, $q, $http, $filter, $interval) {
 
 }]);
-
 
 cloud4netportalControllers.controller('AboutCtrl', ['$scope', '$q', '$http', '$filter', '$interval', function($scope, $q, $http, $filter, $interval) {
 

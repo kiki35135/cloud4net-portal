@@ -163,7 +163,7 @@ public class  AnsibleClient {
 	                System.out.println("exit-status: "+channel.getExitStatus());
 	                break;
 	              }
-	              try{Thread.sleep(1000);}catch(Exception ee){}
+	              try{Thread.sleep(350000);}catch(Exception ee){}
 	            }
 
 		
