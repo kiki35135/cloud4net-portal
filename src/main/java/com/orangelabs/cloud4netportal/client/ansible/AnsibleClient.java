@@ -108,7 +108,7 @@ public class  AnsibleClient {
 
 
 
-	private String FOLDER="~/Ansible_alu5/";
+	private String FOLDER="~/ansible_alu5/";
 
 	public AnsibleClient()
 	{

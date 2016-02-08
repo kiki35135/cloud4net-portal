@@ -174,10 +174,16 @@ class NcsConfigController {
 	log.info("# Modify the config on NCS deployment:");
 
 
+	AnsibleClient sshClient=new AnsibleClient("10.194.60.222",22,"philippe","cloud4net");
+	sshClient.deployPGW("ncs-cvn", "multisite.yml");
 	
-	AnsibleClient sshClient=new AnsibleClient();
-	sshClient.testSSHConnection();
-	
+	NCSRestClient restClient= new NCSRestClient("127.0.0.1",5000,"admin","admin");
+	try {
+		restClient.activateBoostButton("127.0.0.1",5000,"api/v1/test");
+	}
+	catch (Exception e){
+		log.info("# Error  " + e.getMessage());
+	}
 	//NCSRestClient ncs=new NCSRestClient();
 	
 			
@@ -223,15 +229,22 @@ class NcsConfigController {
 	}
 
 	log.info("# Boost Button: Modify the options "); 
-	
+	AnsibleClient sshClient=new AnsibleClient("10.194.60.222",22,"philippe","cloud4net");
+	sshClient.deployPGW("ncs-cvn", "multisite.yml");
 
 	/* Create a new NCS deployment*/
 	log.info("# Boost Button:");
 
-
+	NCSRestClient restClient= new NCSRestClient("127.0.0.1",5000,"admin","admin");
+	try {
+		restClient.activateBoostButton("127.0.0.1",5000,"api/v1/test");
+	}
+	catch (Exception e){
+		log.info("# Error  " + e.getMessage());
+	}
 	
-	AnsibleClient sshClient=new AnsibleClient();
-	sshClient.testSSHConnection();
+	/*AnsibleClient sshClient=new AnsibleClient();
+	sshClient.testSSHConnection();*/
 	
 	//NCSRestClient ncs=new NCSRestClient();
 	final NcsConfigEntity ncsConfig = new NcsConfigEntity();

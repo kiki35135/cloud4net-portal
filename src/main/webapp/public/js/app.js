@@ -51,6 +51,7 @@ var cloud4netportal = angular
 	    'ngRoute', 
 	    'angularFileUpload', 
 	    'ui.bootstrap',
+	    'angular-loading-bar',
 	    'cloud4netportalControllers'
 	])
 	.directive('ngActiveTab', ['$location', function($location) {
@@ -72,6 +73,10 @@ var cloud4netportal = angular
 		    });
 		}
 	    };
+	}])
+	.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+		cfpLoadingBarProvider.includeSpinner = true;
+		 
 	}])
 	.config(['$routeProvider', '$locationProvider', 
 		function($routeProvider, $locationProvider) {
@@ -133,4 +138,5 @@ var cloud4netportal = angular
 	})
 	.run(['$rootScope', function($rootScope) {
 	    $rootScope.currentYear = new Date().getFullYear();
-	}]);    
+	}]);
+

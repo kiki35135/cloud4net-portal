@@ -14,8 +14,13 @@
     <!-- Dependencies for the full site -->
     <group name="cloud4netportal">
 	
-	<css minimize="false">/webjars/bootstrap/@bootstrap.version@/css/bootstrap.min.css</css>	
-	<css>/css/stylesheet.css</css>
+	<!-- <css minimize="false">/webjars/bootstrap/@bootstrap.version@/css/bootstrap.min.css</css> -->	
+	<css>/css/boosted2015.css</css>
+	<css>/css/bootstrap-orange2015.css</css> 
+	
+	<!--<css>/css/stylesheet.css</css>-->
+	
+	
 
 	<js minimize="false">/webjars/jquery/@jquery.version@/jquery.min.js</js>
 	<js minimize="false">/webjars/bootstrap/@bootstrap.version@/js/bootstrap.min.js</js>
@@ -30,9 +35,11 @@
 	<js minimize="false">/webjars/highcharts/@highcharts.version@/highcharts-more.js</js>
 	<js minimize="false">/webjars/sockjs-client/@sockjs-client.version@/sockjs.min.js</js>
 	<js minimize="false">/webjars/stomp-websocket/@stomp-websocket.version@/stomp.min.js</js>
+	<js>/js/loading-bar.min.js</js>
 		
 	<js>/js/app.js</js>
 	<js>/js/controllers.js</js>
 	<js>/js/directives.js</js>
+	
     </group>
 </groups>

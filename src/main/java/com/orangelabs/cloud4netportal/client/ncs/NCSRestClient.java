@@ -188,12 +188,12 @@ public class NCSRestClient {
 	}
 
 
-	public boolean activateBoostButton(String host, int port, String name)
+	public boolean activateBoostButton(String host, int port, String api)
 	{
 		boolean ret=false;
 		String url= new String("https://");
 		url= url.concat(host);
-		url= url.format("http://%s:%d/%s/%s", host,port,api_path_modify,name);
+		url= url.format("http://%s:%d/%s/%s", host,port,api,name);
 		
 		RestTemplate restTemplate = new RestTemplate();
 		

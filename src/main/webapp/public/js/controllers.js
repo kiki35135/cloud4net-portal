@@ -46,30 +46,33 @@ cloud4netportalControllers.controller('IndexCtrl', ['$scope', '$http', '$interva
 	$scope.currentDefaultPicture = '/img/default-picture.jpg';
 }]);
 
-cloud4netportalControllers.controller('ModifyController', ['$scope', '$http', '$modal', function($scope, $http, $modal) {
-	$scope.parameters =  {
-			name: 'PGW-SVC-NGPoP',
-			poolIpClient: '172.20.70.192',
-			netmask: "255.255.255.240",
-			vpnIpAddress: "172.20.70.192",
-			useOrangeDns: 'True',
-			primaryDNS:'172.20.4.148',
-			secondaryDNS:'172.20.104.1',
-			apnName:'vepc6co',
-			options:{
-				highResiliency: 'False',
-				autoElasticity: 'True',
-				advancedParam: 'False'
-			}
-	};
+cloud4netportalControllers.controller('ModifyController', ['$scope',  '$http', '$modal', function($scope, $http, $modal) {
+	$scope.parameters =data;
+	
 	$scope.status = 'Not started';
 	$scope.loading = false;
-
 	$scope.useOrangeDns=false;
 	$scope.highResiliency=false;
 	$scope.autoElasticity=false;
 	$scope.advancedParam=false;
+	$scope.showModal =false;
+	
+	$scope.manualElastivity=false;
 
+	$scope.toggleManualElastivity = function() { 
+		if ($scope.manualElastivity.checked) {
+
+			$scope.parameters.useOrangeDns= 'True';
+		}
+		else
+		{
+
+			$scope.parameters.useOrangeDns= 'False';
+		}
+	};
+
+
+	
 	$scope.toggleUseOrangeDns = function() { 
 		if ($scope.OrangeDns.checked) {
 
@@ -92,10 +95,37 @@ cloud4netportalControllers.controller('ModifyController', ['$scope', '$http', '$
 		}
 	};
 
+	$scope.boostSubmit = function() {
+		$scope.submitting = true;
+		$scope.loading = true;
+		$scope.showModal=true;
+		
+		$http({
+			method: 'POST',
+			url: '/api/ncsConfig/modify',
+			data: $scope.parameters
+		}).success(function(data) {
+			$scope.submitting = false;
+			$scope.status = "Finished";
+			$scope.loading = false;
+			$scope.showModal=false;
+			$modalInstance.close(data);
+		}).error(function(data, status) {
+			$scope.submitting = false;
+			$scope.status = "Error";
+			$scope.showModal =false;
+			$scope.loading = false;
+			if (status === 400)
+				$scope.badRequest = data;
+			else if (status === 409)
+				$scope.badRequest = 'The name is already used.';
+		});
+	};
 	$scope.modifySubmit = function() {
 		$scope.submitting = true;
 		$scope.status = 'Processing .';
-			
+		
+		$scope.showModal =true;
 		if ($scope.useOrangeDns)
 		{
 			$scope.parameters.useOrangeDns='True';
@@ -130,18 +160,20 @@ cloud4netportalControllers.controller('ModifyController', ['$scope', '$http', '$
 		}
 		$http({
 			method: 'POST',
-			url: '/api/ncsConfig/modify',
+			url: '/api/ncsConfig/boost',
 			data: $scope.parameters
 		}).success(function(data) {
 			$scope.submitting = false;
 			$scope.status = 'Finished !';
 			$scope.loading = false;
+			$scope.showModal =false;
 			
 			$modalInstance.close(data);
 		}).error(function(data, status) {
 			$scope.status = 'Error';
 			$scope.submitting = false;
 			$scope.loading = false;
+			$scope.showModal =false;
 			
 			if (status === 400)
 				$scope.badRequest = data;
@@ -177,7 +209,7 @@ cloud4netportalControllers.controller('NCSConfigController', ['$scope', '$http',
 	$scope.autoElasticity=false;
 	$scope.advancedParam=false;
 	
-
+	$scope.showModal =false;
 
 	$scope.toggleUseOrangeDns = function() { 
 
@@ -208,8 +240,10 @@ cloud4netportalControllers.controller('NCSConfigController', ['$scope', '$http',
 		$scope.submitting = true;
 		$scope.status = 'Processing .....';
 		$scope.loading = true;
-		myApp.showPleaseWait();
-		  $scope.showModal = !$scope.showModal;
+		//myApp.showPleaseWait();
+		$scope.showModal =true;
+		//cfpLoadingBar.inc();
+		//$scope.showModal = !$scope.showModal;
 		if ($scope.useOrangeDns)
 		{
 
@@ -254,13 +288,15 @@ cloud4netportalControllers.controller('NCSConfigController', ['$scope', '$http',
 			$scope.submitting = false;
 			$scope.status = 'Finished !';
 			$scope.loading = false;
-			myApp.hidePleaseWait();
+			//myApp.hidePleaseWait();
+			$scope.showModal =false;
+			
 			$modalInstance.close(data);
 		}).error(function(data, status) {
 			$scope.status = 'Error';
 			$scope.submitting = false;
 			$scope.loading = false;
-			myApp.hidePleaseWait();
+			$scope.showModal =false;
 			if (status === 400)
 				$scope.badRequest = data;
 			else if (status === 409)
@@ -273,21 +309,7 @@ cloud4netportalControllers.controller('NCSConfigController', ['$scope', '$http',
 
 
 cloud4netportalControllers.controller('DeleteController', ['$scope', '$http', '$modal', function($scope, $http, $modal) {
-	$scope.parameters =  {
-			name: 'PGW-SVC-NGPoP',
-			poolIpClient: '172.20.70.192',
-			netmask: "255.255.255.240",
-			vpnIpAddress: "172.20.70.192",
-			useOrangeDns: 'True',
-			primaryDNS:'172.20.4.148',
-			secondaryDNS:'172.20.104.1',
-			apnName:'vepc6co',
-			options:{
-				highResiliency: 'False',
-				autoElasticity: 'True',
-				advancedParam: 'False'
-			}
-	};
+	$scope.parameters =data;
 	$scope.status = 'Not started';
 	$scope.loading = false;
 	$scope.useOrangeDns=false;
@@ -295,7 +317,7 @@ cloud4netportalControllers.controller('DeleteController', ['$scope', '$http', '$
 	$scope.autoElasticity=false;
 	$scope.advancedParam=false;
 
-
+	$scope.showModal=false;
 
 	$scope.toggleUseOrangeDns = function() { 
 
@@ -325,8 +347,8 @@ cloud4netportalControllers.controller('DeleteController', ['$scope', '$http', '$
 	$scope.deleteSubmit = function() {
 		$scope.submitting = true;
 		$scope.status = 'Processing .....';
-		$scope.loading = true;
-		myApp.showPleaseWait();
+		$scope.loading= true;
+		$scope.showModal=true;
 		if ($scope.useOrangeDns)
 		{
 
@@ -371,13 +393,14 @@ cloud4netportalControllers.controller('DeleteController', ['$scope', '$http', '$
 			$scope.submitting = false;
 			$scope.status = 'Finished !';
 			$scope.loading = false;
-			myApp.hidePleaseWait();
+			$scope.showModal =false;
+			
 			$modalInstance.close(data);
 		}).error(function(data, status) {
 			$scope.status = 'Error';
 			$scope.submitting = false;
 			$scope.loading = false;
-			myApp.hidePleaseWait();
+			$scope.showModal =false;
 			if (status === 400)
 				$scope.badRequest = data;
 			else if (status === 409)
@@ -391,45 +414,35 @@ cloud4netportalControllers.controller('DeleteController', ['$scope', '$http', '$
 
 
 cloud4netportalControllers.controller('BoostController', ['$scope', '$modal', '$http', function($scope, $modal, $http) {
-	$scope.parameters =  {
-			name: 'PGW-SVC-NGPoP',
-			poolIpClient: '172.20.70.192',
-			netmask: "255.255.255.240",
-			vpnIpAddress: "172.20.70.192",
-			useOrangeDns: 'True',
-			primaryDNS:'172.20.4.148',
-			secondaryDNS:'172.20.104.1',
-			apnName:'vepc6co',
-			options:{
-				highResiliency: 'False',
-				autoElasticity: 'True',
-				advancedParam: 'False'
-			}
-	};
-
+	$scope.parameters =data;
+	
 	$scope.boost = {
 			parentalFw: 'True',
 			webFilter: 'False',
 			antivirus: "True"
 	};
 
-
+	$scope.showModal=false;
 
 	$scope.boostSubmit = function() {
 		$scope.submitting = true;
 		$scope.loading = true;
+		$scope.showModal=true;
+		
 		$http({
 			method: 'POST',
-			url: '/api/ncsConfig/boost',
+			url: '/api/ncsConfig/modify',
 			data: $scope.parameters
 		}).success(function(data) {
 			$scope.submitting = false;
 			$scope.status = "Finished";
 			$scope.loading = false;
+			$scope.showModal=false;
 			$modalInstance.close(data);
 		}).error(function(data, status) {
 			$scope.submitting = false;
 			$scope.status = "Error";
+			$scope.showModal =false;
 			$scope.loading = false;
 			if (status === 400)
 				$scope.badRequest = data;
@@ -452,23 +465,10 @@ cloud4netportalControllers.controller('DeleteController', ['$scope', '$modal', '
 	};
 	
 
-	$scope.parameters = {
-			name: 'PGW-SVC-NGPoP',
-			poolIpClient: '172.20.70.192',
-			netmask: "255.255.255.240",
-			vpnIpAddress: "172.20.70.192",
-			useOrangeDns: 'True',
-			primaryDNS:'172.20.4.148',
-			secondaryDNS:'172.20.104.1',
-			apnName:'vepc6co',
-			options:{
-				highResiliency: 'False',
-				autoElasticity: 'True',
-				advancedParam: 'False'
-			}
-	};
-	
+	$scope.parameters =data;
+	$scope.showModal =true;
 	$scope.deleteSubmit = function() {
+		$scope.showModal =true;
 		$scope.submitting = true;
 		$http({
 			method: 'POST',
@@ -477,8 +477,10 @@ cloud4netportalControllers.controller('DeleteController', ['$scope', '$modal', '
 		}).success(function(data) {
 			$scope.submitting = false;
 			$modalInstance.close(data);
+			$scope.showModal =false;
 		}).error(function(data, status) {
 			$scope.submitting = false;
+			$scope.showModal =false;
 			if (status === 400)
 				$scope.badRequest = data;
 			else if (status === 409)
