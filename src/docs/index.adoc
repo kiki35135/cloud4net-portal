@@ -1,0 +1,7 @@
+
+// including all help texts
+//
+// ====================================
+
+// configuration
+include::config.adoc[]

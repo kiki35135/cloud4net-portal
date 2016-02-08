@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html data-ng-app="cloud4netportal">
+    <head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>Cloud4net - Portal</title>
+
+	<link rel="icon"       type="image/x-icon" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css"     href="/owr/cloud4netportal.css" />
+
+	<script type="text/javascript" src="/owr/cloud4netportal.js"></script>
+    </head>
+
+    <body role="document">
+    <center>
+     <p class="hcenter vcenter" align="center">
+     <a href="#"><img src="/img/orange.png" class="giant"  title="Orange Labs"/></a>&#160;
+     <a href="#"><img src="/img/nokia.jpeg" class="giant"  title="Nokia"/></a>&#160;
+     <a href="#"><img src="/img/cisco.png" class="giant"  title="Cisco"/></a>&#160;
+	</p>
+	</center>
+	
+	<!--  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">-->
+	<nav class="navbar navbar-default " role="navigation">
+		<div class="navbar-header">
+		    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		    </button>
+
+		    <a class="navbar-brand" class="pull-center" href="/">
+		    <!--<a href="#" class="pull-left" style="padding:5px 5px 5px 5px;"><img src="/img/orange-header.png"></a> -->
+		    <!-- <H3>Easy Secured Mobile Access</H3> -->
+		    </a>
+		    
+		</div>
+		<center>
+		<div class="navbar-collapse collapse vcenter"  id="bs-example-navbar-collapse-1">
+		    <ul class="nav navbar-nav">
+			<li><a data-ng-active-tab data-ng-href="/offer"><H3>My Offer</H3></a></li>
+			<li><a data-ng-active-tab data-ng-href="/subscribe"><H3>Subscribe</H3></a></li>
+			<li><a data-ng-active-tab data-ng-href="/add"><H3>Add</H3></a></li>
+			<li><a data-ng-active-tab data-ng-href="/modify"><H3>Modify</H3></a></li>
+			<li><a data-ng-active-tab data-ng-href="/delete"><H3>Delete</H3></a></li>
+			<!-- <li><a data-ng-active-tab data-ng-href="/test"><H3>Test</H3></a></li> -->
+			<li><a data-ng-active-tab data-ng-href="/about"><H3>About</H3></a></li>
+		    </ul>
+		</div>
+		</center>
+	    
+	</nav>
+	<div class="container">
+	     
+	  	<div data-ng-view class=" col-xs-10 col-sm-11 vcenter">
+	    </div>
+	    
+	 </div>
+	<footer class="row">
+	<hr />
+		<div class="col-xs-10 col-sm-11 vcenter">
+		    <p>
+			 2016 &#160; &copy; Orange Labs</a>
+		    </p>
+		</div><!-- ignore additional whitespaces which would take up space
+		--><div class="col-xs-2 col-sm-1 vcenter">
+		    <p>
+		    <img alt="Biker Smilie" id="header_orange" src="/img/orange-header.png" />
+		    </p>
+		</div>
+	    </footer>
+	</div>
+
+    </body>
+</html>

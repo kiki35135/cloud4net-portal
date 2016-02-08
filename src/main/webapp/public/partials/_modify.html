@@ -1,0 +1,144 @@
+<div class="row">
+	<div class="col-md-12">
+
+		<h1>
+			Easy Secured Mobile Access - <b>Modification</b>
+		</h1>
+		<h3>
+			<p>
+				<i>Please fill the following form application:</i>
+			</p>
+		</h3>
+		<br>
+		<div class="modal hide" id="pleaseWaitDialog" ng-show="loading"
+			data-backdrop="static" data-keyboard="false">
+			<div class="modal-header">
+				<h1>Processing...</h1>
+			</div>
+			<div class="modal-body">
+				<div class="progress progress-striped active">
+					<div class="bar" style="width: 100%;"></div>
+				</div>
+			</div>
+		</div>
+
+		<br>
+		<form class="form-horizontal" ng-controller="ModifyController"
+			role="form" action="">
+			<div class="panel panel-default">
+				<div class="panel-heading">Parameters</div>
+
+				<div class="panel-body">
+
+
+					<div class="row col-sm-20" style="padding:15px 15px 15px 15px;">
+						<div class="panel panel-default " style="padding:20px 5px 20px 20px;">
+							<!--<form class="form-horizontal" role="form">-->
+							<div class="form-group">
+								<label for="poolIpClient" class="col-sm-6 control-label "
+									style="text-align: left;">Pool IP Addresses :</label>
+								<div class="col-sm-4">
+									<input type="text" disabled="disabled" ng-model="parameters.poolIpClient"
+										class="form-control" name="poolIpClient" id="poolIpClient">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="netmask" class="col-sm-6 control-label"
+									style="text-align: left;">Netmask :</label>
+								<div class="col-sm-4">
+									<input type="text" disabled="disabled" ng-model="parameters.netmask"
+										class="form-control" name="netmask" id="netmask">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="vpnIP" class="col-sm-6 control-label"
+									style="text-align: left;">VPN Concentrator IP Addresses
+									:</label>
+								<div class="col-sm-4">
+									<input type="text" disabled="disabled" ng-model="parameters.vpnIpAddress"
+										class="form-control" name="vpnIP" id="vpnIP">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="orangeDNS"  class="col-sm-6 control-label"
+									style="text-align: left;">Orange DNS :</label>
+								<div class="col-sm-1" style="text-align: left;">
+									<input type="checkbox"disabled="disabled"  ng-model="useOrangeDns"
+										ng-checked="parameters.useOrangeDns == 'True'"
+										class="form-control" name="orangeDNS"
+										ng-change="stateOrangeDNSChanged()" id="orangeDNS">
+								</div>
+							</div>
+							<div class="panel panel-default col-sm-15" ng-show="!useOrangeDns" style="padding:20px 5px 20px 20px;">
+								<div class="panel-heading">DNS parameters</div>
+
+								<div class="panel-body">
+									<div class="form-group" ng-show="!useOrangeDns">
+										<label for="primaryDNS" class="col-sm-5 control-label"
+											style="text-align: left;">Primary DNS:</label>
+										<div class="col-sm-5">
+											<input type="text" disabled="disabled" ng-model="parameters.primaryDNS"
+												class="form-control" name="primaryDNS" id="primaryDNS">
+										</div>
+
+									</div>
+									<div class="form-group" ng-show="!useOrangeDns">
+										<label for="secDNS" class="col-sm-5 control-label"
+											style="text-align: left;">Secondary DNS :</label>
+										<div class="col-sm-5">
+											<input type="text" disabled="disabled" ng-model="parameters.secondaryDNS"
+												class="form-control" name="secDNS" id="secDNS">
+										</div>
+									</div>
+								</div>
+							</div>
+							</div>
+							<div class="form-group" style="padding:15px 15px 15px 15px;">
+								<label for="autoElasticity" class="col-sm-6 control-label"
+									style="text-align: left;">Auto Elasticity :</label>
+								<div class="col-sm-1" style="text-align: left;">
+									<input type="checkbox"  ng-model="autoElasticity"
+										ng-checked="parameters.options.autoElasticity == 'True'"
+										class="form-control" name="autoElasticity" id="autoElasticity">
+								</div>
+							</div>
+
+							<div class="form-group" style="padding:15px 15px 15px 15px;">
+								<label for="highResiliency" class="col-sm-6 control-label"
+									style="text-align: left;">High Resiliency :</label>
+								<div class="col-sm-1" style="text-align: left;">
+									<input type="checkbox" ng-model="highResiliency"
+										ng-checked="parameters.options.highResiliency == 'True'"
+										class="form-control" name="highResiliency" id="highResiliency">
+								</div>
+							</div>
+							<div class="form-group" style="padding:15px 15px 15px 15px;">
+								<label for="advancedParam" class="col-sm-6 control-label"
+									style="text-align: left;">Advanced Service Usage Monitoring :</label>
+								<div class="col-sm-1" style="text-align: left;">
+									<input type="checkbox" ng-model="advancedParam"
+										ng-checked="parameters.options.advancedParam == 'True'"
+										class="form-control" name="advancedParam" id="advancedParam">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-lg-offset-8 col-lg-10">
+									<button type="submit" class="btn btn-warning  btn-lg"
+										ng-click="modifySubmit()" ng-disabled="submitButtonDisabled">
+										Submit</button>
+								</div>
+
+
+							</div>
+						</div>
+
+						<!--                                    </form>-->
+					</div>
+
+
+
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,63 @@
+<div class="row">
+	<div class="col-md-12">
+
+		<br>
+		<form class="form-horizontal" ng-controller="BoostController"
+			role="form" action="">
+			<div class="panel panel-default">
+				<div class="panel-heading">Options</div>
+
+				<div class="panel-body">
+
+
+					<div class="row col-sm-20" style="padding:15px 15px 15px 15px;">
+											<div class="form-group">
+							<label for="parentalFw" class="col-sm-5 control-label"
+								style="text-align: left;">Parental Firewall :</label>
+							<div class="col-sm-3">
+								<input type="checkbox" ng-model="parentalFw"
+									ng-checked="boost.parentalFw == 'True'" class="form-control"
+									name="parentalFw" id="parentalFw">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="webfilter" class="col-sm-5 control-label"
+								style="text-align: left;">Web Filtering :</label>
+							<div class="col-sm-3">
+								<input type="checkbox" ng-model="webfilter"
+									ng-checked="boost.webfilter == 'True'" class="form-control"
+									name="webfilter" id="webfilter">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="advancedParam" class="col-sm-5 control-label"
+								style="text-align: left;">Antivirus :</label>
+							<div class="col-sm-3">
+								<input type="checkbox" ng-model="antivirus"
+									ng-checked="boost.antivirus == 'True'" class="form-control"
+									name="antivirus" id="antivirus">
+							</div>
+						</div>
+
+							<div class="form-group">
+								<div class="col-lg-offset-8 col-lg-10">
+									<button type="submit" type="button" class="btn btn-warning  btn-lg" 
+										ng-click="boostSubmit()" ng-disabled="submitButtonDisabled">
+										Boost</button>
+								</div>
+
+
+							</div>
+						</div>
+
+						<!--                                    </form>-->
+					</div>
+
+
+
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

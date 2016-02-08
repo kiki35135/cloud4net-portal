@@ -1,0 +1,298 @@
+<div class="row">
+<div class="col-lg-10 col-md-9">
+<!--                        <div class="col-lg-1"><img src="img/ajout_contact.png" alt=""></div>-->
+<h1 class="titre-contact">Ajout d'un contact</h1>
+</div>
+<div class="col-lg-2">
+<form>
+<input id="impression" name="impression" type="button" onclick="imprimer_page()" value="Imprimer" class="pull-right" />
+</form>
+</div>
+</div>
+</div>
+
+
+<div class="container">
+<div class="row">
+<div class="col-lg-12">     
+<div class="tableaudebord">
+<div class="contact_container">
+<div class="row">
+<div class="col-lg-12 col-md-12">
+<h2>Ajouter un contact</h2>
+<p>Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet </p>
+<div class="nb_com" style="display:none">9</div>
+</div>
+</div> 
+</div>
+
+<div class='container'>
+<div class='row'>
+
+
+
+<form class="form-horizontal" role="form">
+<div class='row'>
+<div class="col-lg-12">
+<div class="titleprghp">
+<span class="prg">Information contact</span> 
+</div>
+</div>
+</div>
+<div class='row'>
+
+<div class="col-lg-6">
+<!--<form class="form-horizontal" role="form">-->
+<div class="form-group">
+<label for="civilite" class="col-sm-2 control-label">Civilit&eacute; :</label>
+<div class="col-sm-8">
+<input type="text" class="form-control" lname="civilite;" id="civilite">
+</div>
+</div>
+<div class="form-group">
+<label for="nom" class="col-sm-2 control-label">Nom :</label>
+<div class="col-sm-8">
+<input type="text" class="form-control" name="name" id="name">
+</div>
+</div>
+<div class="form-group" >
+<label for="prenom" class="col-sm-2 control-label">Prenom :</label>
+<div class="col-sm-8">
+<input type="text" class="form-control" name="prenom" id="prenom">
+</div>
+</div>
+<div class="form-group">
+<label for="mail" class="col-sm-2 control-label">Email :</label>
+<div class="col-sm-8">
+<input type="email" class="form-control" name="email" id="email">
+</div>
+</div>
+<div class="form-group">
+<label for="tel" class="col-sm-2 control-label">T&eacute;l&eacute;phone :</label>
+<div class="col-sm-8">
+<input type="text" class="form-control" name="tel" id="tel">
+</div>
+</div>
+<div class="form-group">
+<label for="mobile" class="col-sm-2 control-label">Mobile :</label>
+<div class="col-sm-8">
+<input type="text" class="form-control" name="mobile" id="mobile">
+</div>
+</div>
+<!--                                    </form>-->
+</div>
+
+
+
+
+
+<div class="col-lg-6">
+<!--<form class="form-horizontal" role="form">-->
+<div class="form-group">
+<label for="societe" class="col-sm-2 control-label">Soci&eacute;t&eacute;</label>
+<div class="col-sm-8">
+<input type="text" class="form-control" name="societe" id="societe">
+</div>
+</div>
+<div class="form-group">
+
+<label for="adresse" class="col-sm-2 control-label">Adresse</label>
+<div class="col-sm-8">
+<input type="text" class="form-control" name="adresse" id="adresse">
+</div>
+</div>
+
+<div class="form-group">
+<label for="cp" class="col-sm-2 control-label">Code Postal</label>
+<div class="col-sm-8">
+<input type="text" class="form-control" name="cp" id="cp">
+</div>
+</div>
+<div class="form-group">
+<label for="ville" class="col-sm-2 control-label">Ville</label>
+<div class="col-sm-8">
+<input type="text" name="ville" class="form-control" id="ville">
+</div>
+</div>
+<div class="form-group">
+<label for="pays" class="col-sm-2 control-label">Pays</label>
+<div class="col-sm-8">
+<input type="text" class="form-control" name="pays" id="pays">
+</div>
+</div>
+<div class="form-group">
+<label for="privilege" class="col-sm-2 col-xs-12 control-label">Privilège</label>
+<div class="checkoption">
+<label class="checkbox inline no_indent">
+<input type="checkbox" id="inlineCheckbox1" value="option1"> Vip Acqu&eacute;reur
+</label>
+<!--                                            <div class=" hidden-lg hidden-md col-xs-2"></div>-->
+<label class="checkbox inline no_indent">
+<input type="checkbox" id="inlineCheckbox2" value="option1"> Vip Investisseur
+</label>
+</div>
+</div>
+<!--</form>-->
+</div>
+
+
+</div>
+
+<div class="row">
+<div class="col-lg-6">
+
+<div class="col-lg-12">
+<div class="titleprghp">
+
+<span class="prg">Evenement</span> 
+</div>
+</div>
+<div class="col-lg-12">
+
+
+<!--<form class="form-horizontal" role="form">-->
+<div class="form-group">
+<label for="programme" class="col-sm-2 control-label">Programme</label>
+<div class="col-sm-8">
+<select class="form-control">
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+</select>
+</div>
+</div>
+<div class="form-group">
+<label for="origine" class="col-sm-2 control-label">Origine</label>
+<div class="col-sm-8">
+<select class="form-control">
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+</select>
+</div>
+</div>
+<!--</form>-->
+
+</div>
+
+</div>
+
+
+
+
+<div class="col-lg-6">
+
+<div class="col-lg-12">
+<div class="titleprghp">
+
+<span class="prg">Recherche Immobilière</span> 
+</div>
+</div>
+<!--<div class="blochp_contact">-->
+<div class="col-lg-12">
+
+
+<!--<form class="form-horizontal" role="form">-->                                                 
+<label for="typologie" class="col-sm-2 col-xs-12 control-label">Typologie</label>
+<label class="checkbox inline no_indent">
+<input type="checkbox" id="inlineCheckbox3" value="option1"> Studio
+</label>
+<label class="checkbox inline no_indent">
+<input type="checkbox" id="inlineCheckbox4" value="option2"> 2 pièces
+</label>
+<label class="checkbox inline no_indent">
+<input type="checkbox" id="inlineCheckbox5" value="option3"> 3 pièces
+</label>
+<br class="hides">     <label for="" class="col-sm-2 col-xs-12 control-label" id="hides1"></label>
+<label class="checkbox inline no_indent">
+<input type="checkbox" id="inlineCheckbox6" value="option6"> 4 pièces
+</label>
+<label class="checkbox inline no_indent">
+<input type="checkbox" id="inlineCheckbox7" value="option7"> 5 pièces
+</label>
+<label class="checkbox inline no_indent">  
+<input type="checkbox" id="inlineCheckbox8" value="option8"> 6 pieces
+</label>
+<label for="" class="col-sm-2 col-xs-12 control-label" id="hides2"></label>
+<label class="checkbox inline no_indent">
+<input type="checkbox" id="inlineCheckbox9" value="option5"> Maison
+</label>
+<!--</form>-->
+</div>
+
+</div>
+<div class="col-lg-12 col-xs-12">
+<!--<form class="form-horizontal" role="form">-->
+
+<label for="objectif" class="col-sm-2 col-xs-12 control-label">Objectifs</label>
+
+<label class="checkbox inline no_indent">
+<input type="checkbox" id="inlineCheckbox10" value="option9"> Habiter
+</label>
+<label class="checkbox inline no_indent">
+<input type="checkbox" id="inlineCheckbox11" value="option10">Investir
+</label>
+<label class="checkbox inline no_indent">  
+<input type="checkbox" id="inlineCheckbox12" value="option11"> R&eacute;sidence secondaire
+</label>
+<!--                                                </form>-->
+</div>
+
+<div class="col-lg-12 col-xs-12">
+<!--<form class="form-horizontal" role="form">-->
+
+<div class="form-group">
+<label for="budget" class="col-sm-2 control-label">Budget (&euro;.):</label>
+<div class="col-sm-8">
+<input type="text" class="form-control" name="budget" id="budget">
+</div>
+</div>
+<div class="form-group">
+<label for="cp" class="col-sm-2 control-label">Code Postal<br> de recherche</label>
+<div class="col-sm-8">
+<input type="text" class="form-control" name="cp" id="cp">
+</div>
+</div>
+<div class="form-group">
+<label for="secteur" class="col-sm-2 control-label">Secteur</label>
+<div class="col-sm-8">
+<input type="text" name="secteur" class="form-control" id="secteur">
+</div>
+</div>
+<!--</form>-->
+</div>
+<!--<div class="checkbox">
+<label>
+<input type="checkbox"> Check me out
+</label>
+</div>-->
+</div>
+</div>
+
+
+
+
+<div class="row">
+<div class="col-lg-12">
+<div class="boutton">
+<div class="col-lg-7 col-md-7 hidden-md hidden-xs"></div>
+<div class="col-lg-1 col-md-1 col-xs-12">
+<button name="submit" id="cancel" type="reset" value="reset" class="btn btn-default">Cancel<span class="glyphicon glyphicon-remove"></span></button>
+</div>
+<div class="col-lg-3 col-lg-offset-1 col-md-3 col-md-offset-1 col-xs-12">
+<button name="submit" id="submit" type="submit" value="submit" class="btn btn-default"><span class="glyphicon glyphicon-floppy-disk"></span>Enregistrer la fiche contact<span class="glyphicon glyphicon-chevron-right"></span></button>
+</div>
+</div>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

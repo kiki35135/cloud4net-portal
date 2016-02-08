@@ -1,0 +1,82 @@
+<div class="row">
+	<div class="col-md-12">
+
+		<h1>
+			Easy Secured Mobile Access - <b>Delete</b>
+		</h1>
+		<h3>
+			<p>
+				<i>Please fill the following form application:</i>
+			</p>
+		</h3>
+		<br>
+		<div class="modal hide" id="pleaseWaitDialog" ng-show="loading"
+			data-backdrop="static" data-keyboard="false">
+			<div class="modal-header">
+				<h1>Processing...</h1>
+			</div>
+			<div class="modal-body">
+				<div class="progress progress-striped active">
+					<div class="bar" style="width: 100%;"></div>
+				</div>
+			</div>
+		</div>
+
+		<br>
+		<form class="form-horizontal" ng-controller="DeleteController"
+			role="form" action="">
+			<div class="panel panel-default">
+				<div class="panel-heading">Parameters</div>
+
+				<div class="panel-body">
+
+					<div class="row col-sm-20" style="padding:15px 15px 15px 15px;">
+							<div class="form-group" style="padding:15px 15px 15px 15px;">
+								<label for="autoElasticity" class="col-sm-6 control-label"
+									style="text-align: left;">Remove Auto Elasticity :</label>
+								<div class="col-sm-1" style="text-align: left;">
+									<input type="checkbox" ng-model="autoElasticity"
+										ng-checked="parameters.options.autoElasticity == 'True'"
+										class="form-control" name="autoElasticity" id="autoElasticity">
+								</div>
+							</div>
+
+							<div class="form-group" style="padding:15px 15px 15px 15px;">
+								<label for="highResiliency" class="col-sm-6 control-label"
+									style="text-align: left;">Remove High Resiliency :</label>
+								<div class="col-sm-1" style="text-align: left;">
+									<input type="checkbox" ng-model="highResiliency"
+										ng-checked="parameters.options.highResiliency == 'True'"
+										class="form-control" name="highResiliency" id="highResiliency">
+								</div>
+							</div>
+							<div class="form-group" style="padding:15px 15px 15px 15px;">
+								<label for="advancedParam" class="col-sm-6 control-label"
+									style="text-align: left;">Remove Advanced Service Usage Monitoring :</label>
+								<div class="col-sm-1" style="text-align: left;">
+									<input type="checkbox" ng-model="advancedParam"
+										ng-checked="parameters.options.advancedParam == 'True'"
+										class="form-control" name="advancedParam" id="advancedParam">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-lg-offset-8 col-lg-10">
+									<button  type="submit" type="button" class="btn btn-warning  btn-lg" 
+										ng-click="deleteSubmit()" ng-disabled="submitButtonDisabled">
+										Submit</button>
+								</div>
+
+
+							</div>
+						</div>
+
+						<!--                                    </form>-->
+					</div>
+
+
+
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

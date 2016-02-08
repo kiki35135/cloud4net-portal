@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<groups xmlns="http://www.isdc.ro/wro">
+    
+    <!-- Stripped down dependencies for the the embedded tracks -->
+    <group name="cloud4netportal-embedded">
+
+	
+	<js minimize="false">/webjars/jquery/@jquery.version@/jquery.min.js</js>
+	<js minimize="false">/webjars/angularjs/@angularjs.version@/angular.min.js</js>	
+	<js>/js/directives.js</js>
+    </group>
+    
+    <!-- Dependencies for the full site -->
+    <group name="cloud4netportal">
+	
+	<css minimize="false">/webjars/bootstrap/@bootstrap.version@/css/bootstrap.min.css</css>	
+	<css>/css/stylesheet.css</css>
+
+	<js minimize="false">/webjars/jquery/@jquery.version@/jquery.min.js</js>
+	<js minimize="false">/webjars/bootstrap/@bootstrap.version@/js/bootstrap.min.js</js>
+	<js minimize="false">/webjars/momentjs/@momentjs.version@/min/moment-with-locales.min.js</js>
+	<js minimize="false">/webjars/angular-file-upload/@angular-file-upload.version@/angular-file-upload-html5-shim.min.js</js>
+	<js minimize="false">/webjars/angularjs/@angularjs.version@/angular.min.js</js>
+	<js minimize="false">/webjars/angularjs/@angularjs.version@/angular-route.min.js</js>
+	<js minimize="false">/webjars/angular-file-upload/@angular-file-upload.version@/angular-file-upload.min.js</js>
+	<js minimize="false">/webjars/angular-ui-bootstrap/@angular-ui-bootstrap.version@/ui-bootstrap.min.js</js>
+	<js minimize="false">/webjars/angular-ui-bootstrap/@angular-ui-bootstrap.version@/ui-bootstrap-tpls.min.js</js>
+	<js minimize="false">/webjars/highcharts/@highcharts.version@/highcharts.js</js>
+	<js minimize="false">/webjars/highcharts/@highcharts.version@/highcharts-more.js</js>
+	<js minimize="false">/webjars/sockjs-client/@sockjs-client.version@/sockjs.min.js</js>
+	<js minimize="false">/webjars/stomp-websocket/@stomp-websocket.version@/stomp.min.js</js>
+		
+	<js>/js/app.js</js>
+	<js>/js/controllers.js</js>
+	<js>/js/directives.js</js>
+    </group>
+</groups>

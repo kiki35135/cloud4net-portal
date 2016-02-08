@@ -1,0 +1,197 @@
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.anchor:before {
+  display: block;
+  content: "";
+  height: 50px;
+  margin: -50px 0 0; }
+
+
+.left {
+    text-align: left; 
+}
+
+.right {
+    text-align: right;    
+}
+
+.center {
+    text-align: center;
+}
+
+#chart-current-year {
+    max-width: 640px;
+    height: 300px;
+    display: block;
+}
+
+#chart-monthly-average, #chart-history {
+    max-width: 640px;
+    height: 380px;
+    display: block;
+}
+
+.row0, .row0 td {
+    background-color: #ded7c9; 
+}
+
+tbody th.sum {
+    border-left: 1px solid black; 
+}
+
+tfoot th.sum {
+    border-top: 1px solid black;
+}
+
+table.trip_table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #cccccc;
+}
+
+table.track_table {
+    width: 100%;
+}
+
+th.period, td.period {
+    width: 85px; 
+}
+
+table.trip_table td, table.track_table td {
+    vertical-align: top;
+}
+
+div.map-wrapper div.olMap {
+    width: 100%;
+    height: 480px;
+    border: 4px #fff solid;    
+    box-shadow: 0 0 5px -1px rgba(0, 0, 0, 1);
+    width:100%; 
+    min-height:100%; border:1px solid black;
+}
+
+table.track_table a {
+    background: none !important;
+}
+
+.datepicker-popup table {
+    border-collapse: separate !important;
+    border-spacing: 5px !important;
+}
+
+.highcharts-tooltip table {
+    font-size: 12px;
+    min-width: 150px;
+    margin-bottom: 0px;
+}
+
+#chart-current-year {
+    margin-bottom: 10px;
+}
+
+.form-inline label {
+    font-weight: normal;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.giant {
+    width:80px;
+}
+
+.checkbox{width:50px}
+
+.inline {
+display: inline-block;
+}
+label {
+min-width: 120px;
+}
+.titleprghp {
+height: 46px;
+font-size: 23px;
+height: 46px;
+line-height: 40px;
+padding: 0 0 0 20px;
+margin: 20px 0 20px;
+}
+
+/* Red * /
+$bgDefault      : #e74c3c;
+$bgHighlight    : #c0392b;
+$colDefault     : #ecf0f1;
+$colHover       : #ffbbbc; */
+/* Green * /
+$bgDefault      : #2ecc71;
+$bgHighlight    : #27ae60;
+$colDefault     : #ecf0f1;
+$colHover       : #d1ffed; /*/
+/* Purple * /
+$bgDefault      : #9b59b6;
+$bgHighlight    : #8e44ad;
+$colDefault     : #ecf0f1;
+$colHover       : #ecdbff; /*/
+/* Orange */
+$bgDefault      : #e67e22;
+$bgHighlight    : #d35400;
+$colDefault     : #ecf0f1;
+$colHover       : #ffe6d1; 
+
+
+/* --- Style --- */
+.navbar-default {
+    background-color: $bgDefault;
+    border-color: $bgHighlight;
+    .navbar-brand {
+        color: $colDefault;
+        &:hover, &:focus {
+            color: $colHover; }}
+    .navbar-nav {
+        > li {
+            > a {
+                color: $colDefault;
+                &:hover, &:focus {
+                    color: $colHover;   }}}
+        .active {
+            > a, > a:hover, > a:focus {
+                color: $colHover;
+                background-color: $bgHighlight; }}
+        .open {
+            > a, > a:hover, > a:focus {
+                color: $colHover;
+                background-color: $bgHighlight;
+                .caret {
+                    border-top-color: $colHover;
+                    border-bottom-color: $colHover; }}}
+        > .dropdown {
+            > a {
+                .caret {
+                    border-top-color: $colDefault;
+                    border-bottom-color: $colDefault; }
+                &:hover, &:focus {
+                    .caret {
+                        border-top-color: $colHover;
+                        border-bottom-color: $colHover; }}}}}
+    .navbar-toggle {
+        border-color: $bgHighlight;
+        &:hover, &:focus {
+            background-color: $bgHighlight; }
+        .icon-bar {
+            background-color: $colDefault; }}}
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: $colDefault;
+        &:hover, &:focus {
+            color: $colHover;
+            background-color: $bgHighlight; }}
+}
+
+/* Do not take in account */
+html{padding-top:30px}a.solink{position:fixed;top:0;width:100%;text-align:center;background:#f3f5f6;color:#cfd6d9;border:1px solid #cfd6d9;line-height:30px;text-decoration:none;transition:all .3s;z-index:999}a.solink::first-letter{text-transform:capitalize}a.solink:hover{color:#428bca}

@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-md-12">
+
+	<h2>About</h2>
+	<p>This application is written in <a href="http://www.oracle.com/technetwork/java/index.html">Java</a>. The backend is created with <a href="http://projects.spring.io/spring-boot/">Spring Boot</a>, <a href="http://projects.spring.io/spring-data-jpa/">Spring Data JPA</a> and protected by <a href="http://projects.spring.io/spring-security/">Spring Security</a>. The frontend is created with <a href="http://angularjs.org">AngularJS</a>.</p>
+
+
+	<div class="row">
+	    <div class="col-md-3">
+		<h3>Build</h3>
+
+		<table class="table table-condensed table-bordered table-striped">
+		    <thead>
+			<tr>
+			    <th>Component</th>
+			    <th>Version</th>
+			</tr>
+		    </thead>
+		    <tbody>
+			<tr ng-repeat="(key, value) in info.versions" ng-show="key !== 'app'">
+			    <td>{{ key }}</td>
+			    <td>{{ value }}</td>
+			</tr>
+		    </tbody>
+		</table>
+	    </div>
+	</div>
+
+    </div>
+</div>
